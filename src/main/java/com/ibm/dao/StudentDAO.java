@@ -14,9 +14,9 @@ public interface StudentDAO {
 
     //new methods
     public Student register(Student student);
-    public void drop(int id);
-    public void addCourse(int id,int id2);
-    public String viewGrades(int id,int id2);
-    public int payFees(int id);
+    public void drop(Integer id);
+    // public void addCourse(int id,int id2);
+    public String viewGrades(Integer id,Integer id2);
+    public int payFees(Integer id);
     public List list();
 }

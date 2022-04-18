@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.bean.Professor;
+import com.ibm.bean.RegisteredCourse;
 
 import org.springframework.stereotype.Repository;
 @Repository
 public class ProfessorImpl implements ProfessorDAO {
 
-    private static List<Professor> professors;
+    public static List<Professor> professors;
     {
         professors = new ArrayList<>();
         professors.add(new Professor(1, "Professor 1", "prof1@gmail.com","100001"));
@@ -19,14 +20,14 @@ public class ProfessorImpl implements ProfessorDAO {
     @Override
     public List list() {
         // List all professors
-        return professors;
+        return StudentImpl.registrations;
     }
 
     @Override
-    public Professor create(Professor professor) {
-        // Add new professor
-        professors.add(professor);
-        return professor;
+    public RegisteredCourse grade(RegisteredCourse registeredCourse) {
+        // TODO Auto-generated method stub
+        StudentImpl.regCourse.add(registeredCourse);
+        return registeredCourse;
     }
 
     

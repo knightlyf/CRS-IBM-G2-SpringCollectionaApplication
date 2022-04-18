@@ -34,6 +34,10 @@ public class Course {
 		this.prof = prof;
 	}
 
+	public Course() {
+		super();
+	}
+
 	public Course(List<Object> asList) {
 	}
 
