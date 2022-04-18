@@ -23,49 +23,13 @@ public class ProfessorImpl implements ProfessorDAO {
     }
 
     @Override
-    public Professor get(long id) {
-        // Get professor info
-        for (Professor professor : professors) {
-            if (professor.getId() == id) {
-                return professor;
-            }
-        }
-        return null;
-    }
-
-    @Override
     public Professor create(Professor professor) {
         // Add new professor
         professors.add(professor);
         return professor;
     }
 
-    @Override
-    public Professor update(Long id, Professor professor) {
-        // update new professor info
-
-            for(Professor p : professors) {
-                if(p.getId() == id) {
-                    professor.setId(p.getId());
-                    professors.remove(p);
-                    professors.add(professor);
-                    return p;
-                }
-            }
-        return null;
-    }
-
-    @Override
-    public Long delete(Long id) {
-        // delete a professor
-        for (Professor professor : professors) {
-            if (professor.getId() == id) {
-                professors.remove(professor);
-                return id;
-            }
-        }
-        return null;
-    }
+    
 
 }
     

@@ -36,22 +36,11 @@ public class StudentImpl implements StudentDAO {
         courses.add(new Course(1, "course1", 1000, 10, "prof1"));
     }
 
+    private static List<RegisteredCourse> regCourse;
+    {
+    	//cid,sid,grade
+    }
 
-    @Override
-//    public void register(int id,int stdId) {
-//        // TODO Auto-generated method stub
-//        for(Course c:courses){
-//            if(c.getCourseId()==id && c.getSeats()>0){
-//                // ((Course) registrations).setCourseId(id);
-//                // ((RegisteredCourse) registrations).setStudentId(stdId);
-//                registrations.add(new RegisteredCourse(id,stdId,"A+"));
-//            }
-//            else{
-//                System.out.println("No seats available");
-//            }
-//        }
-//        
-//    }
     public Student register(Student student) {
 //		student.setId(System.currentTimeMillis());
 		registrations.add(student);
@@ -61,33 +50,33 @@ public class StudentImpl implements StudentDAO {
     @Override
     public void drop(int id) {
         // TODO Auto-generated method stub
-//        for(RegisteredCourse c:registrations){
-//            // int maxSeats =10;
-//            if(c.getCourseId()==id){
-//                registrations.remove(c);
-//                
-//            }
-//            
-//            else System.out.println("Error");
-//        }
+        for(Student c:registrations){
+            // int maxSeats =10;
+            if(c.getId()==id){
+                registrations.remove(c);
+                
+            }
+            
+            else System.out.println("Error");
+        }
         
     }
 
-//    @Override
-//    public String viewGrades(int id,int stdId) {
-//        // TODO Auto-generated method stub
-//        for(RegisteredCourse c:registrations){
-//            if(c.getCourseId()==id && c.getStudentId()==stdId){
-//                // System.out.println("Grades: "+c.get(2));
-//                 String s = "Grades for courseId"+c.getCourseId()+": "+c.getGrade();
-//                 return s;
-//            }
-//            // else System.out.println("Error");
-//            else return "Error";
-//        }
-//        return null;
+    @Override
+    public String viewGrades(int id,int stdId) {
+        // TODO Auto-generated method stub
+        for(RegisteredCourse c:regCourse){
+            if(c.getCourseId()==id && c.getStudentId()==stdId){
+                // System.out.println("Grades: "+c.get(2));
+                 String s = "Grades for courseId"+c.getCourseId()+": "+c.getGrade();
+                 return s;
+            }
+            // else System.out.println("Error");
+            else return "Error";
+        }
+        return null;
         
-//    }
+    }
 
     @Override
     public int payFees(int id) {
