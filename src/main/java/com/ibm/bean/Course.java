@@ -1,5 +1,7 @@
 package com.ibm.bean;
 
+import java.util.List;
+
 public class Course {
 	private int courseId;
 	private String courseName;
@@ -30,6 +32,9 @@ public class Course {
 		this.fees = fees;
 		this.seats = seats;
 		this.prof = prof;
+	}
+
+	public Course(List<Object> asList) {
 	}
 
 	public int getCourseId() {

@@ -13,10 +13,10 @@ public interface StudentDAO {
     // public Long delete(Long id);
 
     //new methods
-    public void register(int id,int std_id);
+    public Student register(Student student);
     public void drop(int id);
     public void addCourse(int id,int id2);
-    public String viewGrades(int id,int id2);
+//    public String viewGrades(int id,int id2);
     public int payFees(int id);
     public List list();
 }

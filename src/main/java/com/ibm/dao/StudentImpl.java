@@ -11,10 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class StudentImpl implements StudentDAO {
 
-   private static List<RegisteredCourse> registrations;
+   private static List<Student> registrations;
    {
-       registrations = new ArrayList<RegisteredCourse>();
-       registrations.add(new RegisteredCourse(1,1,"A+"));
+       registrations = new ArrayList<Student>();
+       registrations.add(new Student(1,"name1","email@amil.com","982324222"));
+       
    }
     // List<ArrayList> students = new ArrayList<>();
     // {
@@ -37,51 +38,56 @@ public class StudentImpl implements StudentDAO {
 
 
     @Override
-    public void register(int id,int stdId) {
-        // TODO Auto-generated method stub
-        for(Course c:courses){
-            if(c.getCourseId()==id && c.getSeats()>0){
-                // ((Course) registrations).setCourseId(id);
-                // ((RegisteredCourse) registrations).setStudentId(stdId);
-                registrations.add(new RegisteredCourse(id,stdId,"A+"));
-            }
-            else{
-                System.out.println("No seats available");
-            }
-        }
-        
-    }
+//    public void register(int id,int stdId) {
+//        // TODO Auto-generated method stub
+//        for(Course c:courses){
+//            if(c.getCourseId()==id && c.getSeats()>0){
+//                // ((Course) registrations).setCourseId(id);
+//                // ((RegisteredCourse) registrations).setStudentId(stdId);
+//                registrations.add(new RegisteredCourse(id,stdId,"A+"));
+//            }
+//            else{
+//                System.out.println("No seats available");
+//            }
+//        }
+//        
+//    }
+    public Student register(Student student) {
+//		student.setId(System.currentTimeMillis());
+		registrations.add(student);
+		return student;
+	}
 
     @Override
     public void drop(int id) {
         // TODO Auto-generated method stub
-        for(RegisteredCourse c:registrations){
-            // int maxSeats =10;
-            if(c.getCourseId()==id){
-                registrations.remove(c);
-                
-            }
-            
-            else System.out.println("Error");
-        }
+//        for(RegisteredCourse c:registrations){
+//            // int maxSeats =10;
+//            if(c.getCourseId()==id){
+//                registrations.remove(c);
+//                
+//            }
+//            
+//            else System.out.println("Error");
+//        }
         
     }
 
-    @Override
-    public String viewGrades(int id,int stdId) {
-        // TODO Auto-generated method stub
-        for(RegisteredCourse c:registrations){
-            if(c.getCourseId()==id && c.getStudentId()==stdId){
-                // System.out.println("Grades: "+c.get(2));
-                 String s = "Grades for courseId"+c.getCourseId()+": "+c.getGrade();
-                 return s;
-            }
-            // else System.out.println("Error");
-            else return "Error";
-        }
-        return null;
+//    @Override
+//    public String viewGrades(int id,int stdId) {
+//        // TODO Auto-generated method stub
+//        for(RegisteredCourse c:registrations){
+//            if(c.getCourseId()==id && c.getStudentId()==stdId){
+//                // System.out.println("Grades: "+c.get(2));
+//                 String s = "Grades for courseId"+c.getCourseId()+": "+c.getGrade();
+//                 return s;
+//            }
+//            // else System.out.println("Error");
+//            else return "Error";
+//        }
+//        return null;
         
-    }
+//    }
 
     @Override
     public int payFees(int id) {

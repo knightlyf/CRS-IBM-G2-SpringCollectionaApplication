@@ -64,11 +64,11 @@ public class StudentController {
 
     //=================================================================
     //register course
-    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/post/students/course/{id}/{id2}")
+    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/course/registrationStudent")
     @ResponseBody
-    public ResponseEntity registerCourse(@RequestBody RegisteredCourse registeredCourse, @PathVariable int id,@PathVariable int id2) {
-        studentDAO.register(id,id2);
-        return new ResponseEntity(registeredCourse, HttpStatus.OK);
+    public ResponseEntity registerCourse(@RequestBody Student student) {
+        studentDAO.register(student);
+        return new ResponseEntity(student, HttpStatus.OK);
     }
 
     // Drop course
@@ -95,10 +95,10 @@ public class StudentController {
     }
 
     //view grades
-    @RequestMapping("/students/grades/{id}/{id2}")
-    public ResponseEntity getStudentGrades(@PathVariable("id") int id, @PathVariable("id2") int id2) {
-         String x=studentDAO.viewGrades(id,id2);
-         return new ResponseEntity(x, HttpStatus.OK);
-    }
+//    @RequestMapping("/students/grades/{id}/{id2}")
+//    public ResponseEntity getStudentGrades(@PathVariable("id") int id, @PathVariable("id2") int id2) {
+//         String x=studentDAO.viewGrades(id,id2);
+//         return new ResponseEntity(x, HttpStatus.OK);
+//    }
 
 }
