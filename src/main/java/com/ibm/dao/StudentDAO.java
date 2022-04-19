@@ -2,7 +2,6 @@ package com.ibm.dao;
 
 import java.util.List;
 
-import com.ibm.bean.Course;
 import com.ibm.bean.Student;
 
 public interface StudentDAO {
@@ -18,5 +17,5 @@ public interface StudentDAO {
     // public void addCourse(int id,int id2);
     public String viewGrades(Integer id,Integer id2);
     public int payFees(Integer id);
-    public List list();
+    public List<Student> list();
 }

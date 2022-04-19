@@ -119,8 +119,8 @@ public class StudentImpl implements StudentDAO {
         
         String SQL = "insert into student (id, name, email, mobile) values (?, ?, ?, ?)";
             
-        jdbcTemplateObject.update(SQL, student);
-        System.out.println("Created Record Name ");
+        jdbcTemplateObject.update(SQL, new Object[]{student.getId(), student.getName(), student.getEmail(), student.getMobile()});
+        System.out.println("Created Record Name with studentId = " + student.getId());
     
         return student;
         

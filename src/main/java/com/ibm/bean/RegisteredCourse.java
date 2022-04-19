@@ -30,5 +30,7 @@ public class RegisteredCourse {
         this.courseId = courseId;
         this.grade = grade;
     }
+    public RegisteredCourse() {
+    }
    
 }
