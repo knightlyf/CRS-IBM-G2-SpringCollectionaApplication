@@ -134,9 +134,10 @@ public class StudentImpl implements StudentDAO {
             Course course = jdbcTemplateObject.queryForObject(SQL, 
                             new Object[]{id}, new CourseMapper());
             logger.debug("value", jdbcTemplateObject.queryForObject(SQL, 
-                            new Object[]{id}, new StudentMapper()));;
+                            new Object[]{id}, new CourseMapper()));;
             logger.debug("value of emp-->" +course.toString());
             return course.getFees();
+           
     }
 
     @Override
@@ -145,10 +146,12 @@ public class StudentImpl implements StudentDAO {
         String SQL = "select * from registered_course where course_id = ? and student_id = ?";
             RegisteredCourse course = jdbcTemplateObject.queryForObject(SQL, 
                             new Object[]{id,stdId}, new RegisteredCourseMapper());
+            
             logger.debug("value", jdbcTemplateObject.queryForObject(SQL, 
                             new Object[]{id,stdId}, new RegisteredCourseMapper()));;
             logger.debug("value of fees-->" +course.toString());
             return course.getGrade();
+          
     }
 
     @Override
