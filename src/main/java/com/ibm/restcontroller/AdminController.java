@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 import com.ibm.bean.Admin;
+import com.ibm.bean.User;
 import com.ibm.dao.AdminDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,13 @@ public class AdminController {
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(id, HttpStatus.OK);
+    }
+
+    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/users/all")
+    @ResponseBody
+    public ResponseEntity<User> updateUserMain(@RequestBody User user) {
+        adminDAO.addProfileMain(user);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
 }

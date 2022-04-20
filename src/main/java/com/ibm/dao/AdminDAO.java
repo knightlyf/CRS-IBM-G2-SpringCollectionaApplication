@@ -5,6 +5,7 @@ import java.util.List;
 import com.ibm.bean.Admin;
 import com.ibm.bean.Professor;
 import com.ibm.bean.Student;
+import com.ibm.bean.User;
 
 public interface AdminDAO {
     //Admin management
@@ -20,5 +21,8 @@ public interface AdminDAO {
     //Professor management
     public Professor addProfessor(Professor professor);
     public void deleteProfessor(Integer id);
+
+    //Profile management
+    public User addProfileMain(User user);
 
 }

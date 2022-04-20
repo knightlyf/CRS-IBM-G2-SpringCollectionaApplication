@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
+// import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +24,11 @@ public class ProfessorController {
     @Autowired
     private ProfessorDAO professorDAO;
 
-    @RequestMapping("/professors")
-    public ResponseEntity<List<Professor>> getAllProfessors() {
-        return new ResponseEntity<>(ProfessorDAO.list(), HttpStatus.OK);
+    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/professors")
+    @ResponseBody
+    public List<Professor> getAllProfessors() {
+        //list all professors
+        return professorDAO.list();
     }
 
     // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/professor/{id}")
@@ -42,6 +44,7 @@ public class ProfessorController {
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/post/students/grades")
     @ResponseBody
     public ResponseEntity<RegisteredCourse> createProfessor(@RequestBody RegisteredCourse registeredCourse) {
+        //Grade students
         professorDAO.grade(registeredCourse);
         return new ResponseEntity<>(registeredCourse, HttpStatus.OK);
     }

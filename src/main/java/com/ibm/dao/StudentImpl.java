@@ -7,6 +7,7 @@ import com.ibm.bean.Catalog;
 import com.ibm.bean.Course;
 import com.ibm.bean.RegisteredCourse;
 import com.ibm.bean.Student;
+import com.ibm.bean.User;
 import com.ibm.mapper.CatalogMapper;
 import com.ibm.mapper.RegisteredCourseMapper;
 import com.ibm.mapper.StudentMapper;
@@ -187,6 +188,14 @@ public class StudentImpl implements StudentDAO {
             return;
     }
 
+    @Override
+    @Transactional
+    public User addProfile(User user) {
+        // Give username and password to a user
+        String SQL = "insert into user (email, password) values (?, ?, ?)";
+        jdbcTemplateObject.update( SQL,new Object[] {user.getEmail(),user.getPassword()});
+        return null;
+    }
 
     // @Override
     // public void update(Integer id, Integer age) {

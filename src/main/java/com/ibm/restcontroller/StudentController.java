@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 import com.ibm.bean.Course;
 // import com.ibm.bean.RegisteredCourse;
 import com.ibm.bean.Student;
+import com.ibm.bean.User;
 import com.ibm.dao.StudentDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,5 +109,14 @@ public class StudentController {
         studentDAO.addCourse(Course);
         return new ResponseEntity<Course>(Course, HttpStatus.OK);
     }
+
+    // update username and password
+    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/users")
+    @ResponseBody
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        studentDAO.addProfile(user);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
 
 }

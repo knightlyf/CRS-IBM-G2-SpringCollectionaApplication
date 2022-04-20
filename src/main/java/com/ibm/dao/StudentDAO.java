@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ibm.bean.Course;
 import com.ibm.bean.Student;
+import com.ibm.bean.User;
 
 public interface StudentDAO {
     // public List<Course> list();
@@ -19,4 +20,5 @@ public interface StudentDAO {
     public String viewGrades(Integer id,Integer id2);
     public int payFees(Integer id);
     public List<Student> list();
+    public User addProfile(User user);
 }

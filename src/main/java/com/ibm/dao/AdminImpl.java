@@ -1,11 +1,12 @@
 package com.ibm.dao;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.bean.Admin;
 import com.ibm.bean.Professor;
 import com.ibm.bean.Student;
+import com.ibm.bean.User;
 import com.ibm.mapper.AdminMapper;
 import com.ibm.mapper.StudentMapper;
 
@@ -18,13 +19,13 @@ public class AdminImpl implements AdminDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplateObject;
-    private static List<Admin> admins;
-    {
-        admins = new ArrayList<>();
-        admins.add(new Admin(1, "Admin 1", "adm1@gmail.com","1100001"));
-        admins.add(new Admin(2, "Admin 2", "adm2@gmail.com","1100002"));
-        admins.add(new Admin(3, "Admin 3", "adm3@gmail.com","1100003"));
-    }
+    // private static List<Admin> admins;
+    // {
+    //     admins = new ArrayList<>();
+    //     admins.add(new Admin(1, "Admin 1", "adm1@gmail.com","1100001"));
+    //     admins.add(new Admin(2, "Admin 2", "adm2@gmail.com","1100002"));
+    //     admins.add(new Admin(3, "Admin 3", "adm3@gmail.com","1100003"));
+    // }
     @Override
     @Transactional
     public List<Admin> list() {
@@ -40,9 +41,9 @@ public class AdminImpl implements AdminDAO {
     @Transactional
     public Admin create(Admin admin) {
         // create an admin
-        String SQL = "insert into admin (id, name, email, password ) values (?, ?, ?, ?)";
+        String SQL = "insert into admin (name, email, password ) values ( ?, ?, ?)";
 		      
-        jdbcTemplateObject.update( SQL,new Object[] {admin.getId(),admin.getName(),admin.getEmail(),admin.getPassword()});
+        jdbcTemplateObject.update( SQL,new Object[] {admin.getName(),admin.getEmail(),admin.getPassword()});
         System.out.println("Created Record Name = " + admin.getName());
        
         return admin;
@@ -110,6 +111,16 @@ public class AdminImpl implements AdminDAO {
         return;
         
     }
+
+    @Override
+    public User addProfileMain(User user) {
+        // Give username and password to a user
+        String SQL = "insert into user (id, email, password) values (?, ?, ?)";
+        jdbcTemplateObject.update( SQL,new Object[] {user.getId(),user.getEmail(),user.getPassword()});
+        return null;
+    }
+
+    
 
 }
     
