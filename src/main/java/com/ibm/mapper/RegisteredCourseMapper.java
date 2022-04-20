@@ -13,8 +13,8 @@ public class RegisteredCourseMapper implements RowMapper<RegisteredCourse>{
 		// TODO Auto-generated method stub
 		
         RegisteredCourse course = new RegisteredCourse();
-            course.setStudentId(rs.getInt("student_id"));
-            course.setCourseId(rs.getInt("course_id"));
+            course.setStudentId(rs.getInt("studentId"));
+            course.setCourseId(rs.getInt("courseId"));
             course.setGrade(rs.getString("grade"));
            
             return course;

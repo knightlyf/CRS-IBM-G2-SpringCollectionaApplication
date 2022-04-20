@@ -3,8 +3,8 @@ package com.ibm.restcontroller;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
-import com.ibm.bean.Professor;
 import com.ibm.bean.RegisteredCourse;
+import com.ibm.bean.Student;
 import com.ibm.dao.ProfessorDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ public class ProfessorController {
     @Autowired
     private ProfessorDAO professorDAO;
 
-    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/professors")
+    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "professor/students")
     @ResponseBody
-    public List<Professor> getAllProfessors() {
+    public List<Student> getAllStudents() {
         //list all professors
         return professorDAO.list();
     }

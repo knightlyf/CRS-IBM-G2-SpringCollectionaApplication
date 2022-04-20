@@ -11,7 +11,7 @@ public interface AdminDAO {
     //Admin management
     public List<Admin> list();
     public Admin create(Admin admin);
-    public Admin update(Long id, Admin admin);
+    public Admin update(Admin admin);
     public Long delete(Long id);
 
     //Student management
@@ -24,5 +24,6 @@ public interface AdminDAO {
 
     //Profile management
     public User addProfileMain(User user);
+    public List<User> getAllUsers();
 
 }

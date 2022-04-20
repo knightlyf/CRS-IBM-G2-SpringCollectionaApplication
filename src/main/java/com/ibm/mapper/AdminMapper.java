@@ -15,7 +15,12 @@ public class AdminMapper implements RowMapper<Admin>{
 		// TODO Auto-generated method stub
 		
             Admin admin = new Admin();
+            admin.setId(rs.getInt("id"));
+            admin.setName(rs.getString("name"));
+            admin.setEmail(rs.getString("email"));
+            admin.setPassword(rs.getString("password"));
             
+
             return admin;
     }
 

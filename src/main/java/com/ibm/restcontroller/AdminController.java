@@ -51,23 +51,20 @@ public class AdminController {
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.PUT, value = "/put/admins/{id}")
     @ResponseBody
-    public ResponseEntity<String> updateAdmin(@PathVariable("id") Long id,@RequestBody Admin admin) {
+    public ResponseEntity<Admin> updateAdmin(@PathVariable("id") Integer id,@RequestBody Admin admin) {
         //update admin information
-        Admin p = adminDAO.update(id, admin);
-        if(null == admin){
-            return new ResponseEntity<>("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity(p, HttpStatus.OK);
+        Admin p = adminDAO.update(admin);
+        return new ResponseEntity<Admin>(p, HttpStatus.OK);
     }
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.DELETE, value = "/delete/admins/{id}")
     @ResponseBody
     //delete an admin
-    public ResponseEntity deleteAdmin(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteAdmin(@PathVariable Long id) {
        if(null == adminDAO.delete(id)){
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
+            return new ResponseEntity("No Admin found for ID " + id, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity(id, HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/users/all")
@@ -77,4 +74,10 @@ public class AdminController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
+    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/users/all")
+    @ResponseBody
+    public List<User> getUserMain() {
+        List<User> user = adminDAO.getAllUsers();
+        return user;
+    }
 }

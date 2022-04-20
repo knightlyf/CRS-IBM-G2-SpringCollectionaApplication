@@ -2,14 +2,11 @@ package com.ibm.dao;
 
 import java.util.List;
 
-import com.ibm.bean.Professor;
+// import com.ibm.bean.Professor;
 import com.ibm.bean.RegisteredCourse;
+import com.ibm.bean.Student;
 
 public interface ProfessorDAO {
-    public List<Professor> list() ;
-    
-    // public Professor create(Professor professor);
-    // public Professor update(Long id, Professor professor);
-    // public Long delete(Long id);
+    public List<Student> list() ;
     public RegisteredCourse grade(RegisteredCourse registeredCourse);
 }

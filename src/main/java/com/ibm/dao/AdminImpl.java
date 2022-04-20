@@ -9,6 +9,7 @@ import com.ibm.bean.Student;
 import com.ibm.bean.User;
 import com.ibm.mapper.AdminMapper;
 import com.ibm.mapper.StudentMapper;
+import com.ibm.mapper.UserMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -51,7 +52,7 @@ public class AdminImpl implements AdminDAO {
 
     @Override
     @Transactional
-    public Admin update(Long id, Admin admin) {
+    public Admin update(Admin admin) {
         // update admin info
 
         String SQL = "update admin set password = ? where id = ?";
@@ -118,6 +119,16 @@ public class AdminImpl implements AdminDAO {
         String SQL = "insert into user (id, email, password) values (?, ?, ?)";
         jdbcTemplateObject.update( SQL,new Object[] {user.getId(),user.getEmail(),user.getPassword()});
         return null;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        // Get all users username and password
+        String SQL = "select * from user";
+            List <User> users = jdbcTemplateObject.query(SQL, 
+                                    new UserMapper());
+                    
+            return users;
     }
 
     

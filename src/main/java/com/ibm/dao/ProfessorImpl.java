@@ -2,10 +2,9 @@ package com.ibm.dao;
 
 // import java.util.ArrayList;
 import java.util.List;
-
-import com.ibm.bean.Professor;
 import com.ibm.bean.RegisteredCourse;
-import com.ibm.mapper.ProfessorMapper;
+import com.ibm.bean.Student;
+import com.ibm.mapper.StudentMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,11 +23,11 @@ public class ProfessorImpl implements ProfessorDAO {
     // }
     @Override
     @Transactional
-    public List<Professor> list() {
+    public List<Student> list() {
         // List all professors
-        String SQL = "SELECT * FROM professor";
-        List<Professor> professors = jdbcTemplateObject.query(SQL, new ProfessorMapper());
-        return professors;
+        String SQL = "SELECT * FROM student";
+        List<Student> students = jdbcTemplateObject.query(SQL, new StudentMapper());
+        return students;
     }
 
     @Override
