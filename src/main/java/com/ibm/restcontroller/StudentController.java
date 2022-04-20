@@ -2,10 +2,10 @@ package com.ibm.restcontroller;
 
 import java.util.List;
 
-import javax.print.attribute.standard.MediaSize.NA;
 import javax.ws.rs.core.MediaType;
 
-import com.ibm.bean.RegisteredCourse;
+import com.ibm.bean.Course;
+// import com.ibm.bean.RegisteredCourse;
 import com.ibm.bean.Student;
 import com.ibm.dao.StudentDAO;
 
@@ -66,17 +66,17 @@ public class StudentController {
     //register course
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/course/registrationStudent")
     @ResponseBody
-    public ResponseEntity registerCourse(@RequestBody Student student) {
+    public ResponseEntity<Student> registerCourse(@RequestBody Student student) {
         studentDAO.register(student);
-        return new ResponseEntity(student, HttpStatus.OK);
+        return new ResponseEntity<Student>(student, HttpStatus.OK);
     }
 
     // Drop course
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.DELETE, value = "/drop/students/course/{id}")
     @ResponseBody
-    public ResponseEntity deleteCourse(@PathVariable int id) {
+    public ResponseEntity<Integer> deleteCourse(@PathVariable int id) {
         studentDAO.drop(id);
-        return new ResponseEntity(id, HttpStatus.OK);
+        return new ResponseEntity<Integer>(id, HttpStatus.OK);
     }
     
 
@@ -90,15 +90,23 @@ public class StudentController {
 
     //get all registrations
     @RequestMapping("/students/registrations")
-    public ResponseEntity getAllStudents() {
-        return new ResponseEntity(studentDAO.list(), HttpStatus.OK);
+    public ResponseEntity<List<Student>> getAllStudents() {
+        return new ResponseEntity<List<Student>>(studentDAO.list(), HttpStatus.OK);
     }
 
     //view grades
-//    @RequestMapping("/students/grades/{id}/{id2}")
-//    public ResponseEntity getStudentGrades(@PathVariable("id") int id, @PathVariable("id2") int id2) {
-//         String x=studentDAO.viewGrades(id,id2);
-//         return new ResponseEntity(x, HttpStatus.OK);
-//    }
+   @RequestMapping("/students/grades/{id}/{id2}")
+   public ResponseEntity<String> getStudentGrades(@PathVariable("id") int id, @PathVariable("id2") int id2) {
+        String x="Student id:"+id+"\n"+"Course Grade:"+studentDAO.viewGrades(id,id2);
+        return new ResponseEntity<String>(x, HttpStatus.OK);
+   }
+
+    // add course
+    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/course/add")
+    @ResponseBody
+    public ResponseEntity<Course> addCourse(@RequestBody Course Course) {
+        studentDAO.addCourse(Course);
+        return new ResponseEntity<Course>(Course, HttpStatus.OK);
+    }
 
 }

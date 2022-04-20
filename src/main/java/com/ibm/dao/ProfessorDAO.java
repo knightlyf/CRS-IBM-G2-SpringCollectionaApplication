@@ -6,7 +6,7 @@ import com.ibm.bean.Professor;
 import com.ibm.bean.RegisteredCourse;
 
 public interface ProfessorDAO {
-    public List list();
+    public List<Professor> list() ;
     
     // public Professor create(Professor professor);
     // public Professor update(Long id, Professor professor);

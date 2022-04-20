@@ -25,8 +25,8 @@ public class ProfessorController {
     private ProfessorDAO professorDAO;
 
     @RequestMapping("/professors")
-    public List getAllProfessors() {
-        return professorDAO.list();
+    public ResponseEntity<List<Professor>> getAllProfessors() {
+        return new ResponseEntity<>(ProfessorDAO.list(), HttpStatus.OK);
     }
 
     // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/professor/{id}")
@@ -41,9 +41,9 @@ public class ProfessorController {
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/post/students/grades")
     @ResponseBody
-    public ResponseEntity createProfessor(@RequestBody RegisteredCourse registeredCourse) {
+    public ResponseEntity<RegisteredCourse> createProfessor(@RequestBody RegisteredCourse registeredCourse) {
         professorDAO.grade(registeredCourse);
-        return new ResponseEntity(registeredCourse, HttpStatus.OK);
+        return new ResponseEntity<>(registeredCourse, HttpStatus.OK);
     }
 
     // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.PUT, value = "/put/professors/{id}")

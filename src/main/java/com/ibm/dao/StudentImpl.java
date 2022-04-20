@@ -3,10 +3,11 @@ package com.ibm.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ibm.bean.Catalog;
 import com.ibm.bean.Course;
 import com.ibm.bean.RegisteredCourse;
 import com.ibm.bean.Student;
-import com.ibm.mapper.CourseMapper;
+import com.ibm.mapper.CatalogMapper;
 import com.ibm.mapper.RegisteredCourseMapper;
 import com.ibm.mapper.StudentMapper;
 
@@ -37,11 +38,11 @@ public class StudentImpl implements StudentDAO {
 		students.add(new Student(101, "John", "Doe@nk.com", "9843783428"));
 	}
 
-    private static List<Course> courses;
+    private static List<Catalog> courses;
     {
-        courses = new ArrayList<Course>();
+        courses = new ArrayList<Catalog>();
         // courses.add(new Course(Arrays.asList(1,"course1",1000,10,"prof1")));
-        courses.add(new Course(1, "course1", 1000, 10, "prof1"));
+        courses.add(new Catalog(1, "course1", 1000, 10, "prof1"));
     }
 
     public static List<RegisteredCourse> regCourse;
@@ -114,7 +115,7 @@ public class StudentImpl implements StudentDAO {
    @Override
     @Transactional
     public Student register(Student student) {
-        // TODO Auto-generated method stub
+        // Register student in the database
         
         
         String SQL = "insert into student (id, name, email, mobile) values (?, ?, ?, ?)";
@@ -126,15 +127,24 @@ public class StudentImpl implements StudentDAO {
         
     }
 
+    
+    @Override
+    public void addCourse(Course course) {
+        // add course into students profile
+        String SQL = "insert into course (studentId, courseId) values (?, ?)";
+        jdbcTemplateObject.update(SQL, new Object[]{course.getStudentId(), course.getCourseId()});
+        
+    }
+
     @Override
     public int payFees(Integer id) {
-        // TODO Auto-generated method stub
+        // Pay fees for course
         
         String SQL = "select * from course where id = ?";
-            Course course = jdbcTemplateObject.queryForObject(SQL, 
-                            new Object[]{id}, new CourseMapper());
+            Catalog course = jdbcTemplateObject.queryForObject(SQL, 
+                            new Object[]{id}, new CatalogMapper());
             logger.debug("value", jdbcTemplateObject.queryForObject(SQL, 
-                            new Object[]{id}, new CourseMapper()));;
+                            new Object[]{id}, new CatalogMapper()));;
             logger.debug("value of emp-->" +course.toString());
             return course.getFees();
            
@@ -142,8 +152,8 @@ public class StudentImpl implements StudentDAO {
 
     @Override
     public String viewGrades(Integer id, Integer stdId) {
-        // TODO Auto-generated method stub
-        String SQL = "select * from registered_course where course_id = ? and student_id = ?";
+        // view grades for course
+        String SQL = "select * from registerations where course_id = ? and student_id = ?";
             RegisteredCourse course = jdbcTemplateObject.queryForObject(SQL, 
                             new Object[]{id,stdId}, new RegisteredCourseMapper());
             
@@ -157,7 +167,7 @@ public class StudentImpl implements StudentDAO {
     @Override
     @Transactional
     public List<Student> list() {
-        // TODO Auto-generated method stub
+        // list all students
             String SQL = "select * from student";
             List <Student> students = jdbcTemplateObject.query(SQL, 
                                     new StudentMapper());
@@ -176,6 +186,7 @@ public class StudentImpl implements StudentDAO {
             System.out.println("Deleted Record with ID = " + id );
             return;
     }
+
 
     // @Override
     // public void update(Integer id, Integer age) {

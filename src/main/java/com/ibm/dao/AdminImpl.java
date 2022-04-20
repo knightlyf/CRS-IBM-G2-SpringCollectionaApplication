@@ -4,11 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.bean.Admin;
+import com.ibm.bean.Professor;
+import com.ibm.bean.Student;
+import com.ibm.mapper.AdminMapper;
+import com.ibm.mapper.StudentMapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class AdminImpl implements AdminDAO {
 
+    @Autowired
+    private JdbcTemplate jdbcTemplateObject;
     private static List<Admin> admins;
     {
         admins = new ArrayList<>();
@@ -17,54 +26,89 @@ public class AdminImpl implements AdminDAO {
         admins.add(new Admin(3, "Admin 3", "adm3@gmail.com","1100003"));
     }
     @Override
-    public List list() {
+    @Transactional
+    public List<Admin> list() {
         // List all Admins
-        return admins;
+        String SQL = "select * from admin";
+            List <Admin> admins = jdbcTemplateObject.query(SQL, 
+                                    new AdminMapper());
+                    
+            return admins;
     }
 
     @Override
-    public Admin get(long id) {
-        // Get one admin info
-        for (Admin admin : admins) {
-            if (admin.getId() == id) {
-                return admin;
-            }
-        }
-        return null;
-    }
-
-    @Override
+    @Transactional
     public Admin create(Admin admin) {
         // create an admin
-        admins.add(admin);
+        String SQL = "insert into admin (id, name, email, password ) values (?, ?, ?, ?)";
+		      
+        jdbcTemplateObject.update( SQL,new Object[] {admin.getId(),admin.getName(),admin.getEmail(),admin.getPassword()});
+        System.out.println("Created Record Name = " + admin.getName());
+       
         return admin;
     }
 
     @Override
+    @Transactional
     public Admin update(Long id, Admin admin) {
         // update admin info
 
-            for(Admin p : admins) {
-                if(p.getId() == id) {
-                    admin.setId(p.getId());
-                    admins.remove(p);
-                    admins.add(admin);
-                    return p;
-                }
-            }
-        return null;
+        String SQL = "update admin set password = ? where id = ?";
+        jdbcTemplateObject.update(SQL, new Object[]{admin.getName(),admin.getPassword()});
+        System.out.println("Updated Record with ID = " + admin.getId() );
+        return admin;
     }
 
     @Override
     public Long delete(Long id) {
         // delete an admin
-        for (Admin admin : admins) {
-            if (admin.getId() == id) {
-                admins.remove(admin);
-                return id;
-            }
-        }
-        return null;
+        String SQL = "delete from admin where id = ?";
+		      jdbcTemplateObject.update(SQL, id);
+		      System.out.println("Deleted Record with ID = " + id );
+		      return 0L;
+    }
+
+    @Override
+    @Transactional
+    public List<Student> listStudents() {
+        // list all students
+            String SQL = "select * from student";
+            List <Student> students = jdbcTemplateObject.query(SQL, 
+                                    new StudentMapper());
+                    
+            return students;
+    }
+
+    @Override
+    public void deleteStudent(Integer id) {
+        // Delete student profile
+        String SQL = "delete from student where id = ?";
+        jdbcTemplateObject.update(SQL, id);
+        System.out.println("Deleted Record with ID = " + id );
+        return;
+        
+    }
+
+    @Override
+    @Transactional
+    public Professor addProfessor(Professor professor) {
+        // Add professor profile
+        String SQL = "insert into admin (id, name, email, password ) values (?, ?, ?, ?)";
+		      
+        jdbcTemplateObject.update( SQL,new Object[] {professor.getId(),professor.getName(),professor.getEmail(),professor.getMobile()});
+        System.out.println("Created Record Name = " + professor.getName());
+       
+        return professor;
+    }
+
+    @Override
+    public void deleteProfessor(Integer id) {
+        // Delete professor profile
+        String SQL = "delete from professor where id = ?";
+        jdbcTemplateObject.update(SQL, id);
+        System.out.println("Deleted Record with ID = " + id );
+        return;
+        
     }
 
 }

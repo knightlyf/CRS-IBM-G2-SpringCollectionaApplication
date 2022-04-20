@@ -32,11 +32,11 @@ public class Admin implements Serializable {
         this.email = email;
     }
 
-    public String getMobile() {
+    public String getPassword() {
         return password;
     }
 
-    public void setMobile(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

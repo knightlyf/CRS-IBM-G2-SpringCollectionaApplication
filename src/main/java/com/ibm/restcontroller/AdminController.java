@@ -23,40 +23,45 @@ public class AdminController {
     @Autowired
     private AdminDAO adminDAO;
 
-    @RequestMapping("/admins")
-    public List getAllAdmins() {
+    @RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET,value = "/admins")
+    @ResponseBody
+    public List<Admin> getAllAdmins() {
+        //list all admins
         return adminDAO.list();
     }
 
-    @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/admin/{id}")
-    @ResponseBody
-    public ResponseEntity getAdmin(@PathVariable("id") Long id) {
-        Admin admin = adminDAO.get(id);
-        if (admin == null) {
-            return new ResponseEntity("No Admin found for ID " + id, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity(admin, HttpStatus.OK);
-    }
+    // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/admin/{id}")
+    // @ResponseBody
+    // public ResponseEntity getAdmin(@PathVariable("id") Long id) {
+    //     Admin admin = adminDAO.get(id);
+    //     if (admin == null) {
+    //         return new ResponseEntity("No Admin found for ID " + id, HttpStatus.NOT_FOUND);
+    //     }
+    //     return new ResponseEntity(admin, HttpStatus.OK);
+    // }
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/post/admins")
     @ResponseBody
-    public ResponseEntity createAdmin(@RequestBody Admin admin) {
+    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+        //create new admin
         adminDAO.create(admin);
-        return new ResponseEntity(admin, HttpStatus.OK);
+        return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.PUT, value = "/put/admins/{id}")
     @ResponseBody
-    public ResponseEntity updateAdmin(@PathVariable("id") Long id,@RequestBody Admin admin) {
+    public ResponseEntity<String> updateAdmin(@PathVariable("id") Long id,@RequestBody Admin admin) {
+        //update admin information
         Admin p = adminDAO.update(id, admin);
         if(null == admin){
-            return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(p, HttpStatus.OK);
     }
 
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.DELETE, value = "/delete/admins/{id}")
     @ResponseBody
+    //delete an admin
     public ResponseEntity deleteAdmin(@PathVariable Long id) {
        if(null == adminDAO.delete(id)){
             return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);

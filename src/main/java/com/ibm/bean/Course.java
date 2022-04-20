@@ -3,66 +3,37 @@ package com.ibm.bean;
 import java.util.List;
 
 public class Course {
-	private int courseId;
-	private String courseName;
-	private int fees;
-	private int seats;
-	private String prof;
-	public String getProf() {
-		return prof;
-	}
+	private int studentId;
+    private int courseId;
+    private String grade;
 
-	public void setProf(String prof) {
-		this.prof = prof;
-	}
-
-	public int getSeats() {
-		return seats;
-	}
-
-	public void setSeats(int seats) {
-		this.seats = seats;
-	}
-
-	//constructor
-	public Course(int courseId, String courseName, int fees, int seats, String prof) {
-		super();
-		this.courseId = courseId;
-		this.courseName = courseName;
-		this.fees = fees;
-		this.seats = seats;
-		this.prof = prof;
-	}
-
-	public Course() {
-		super();
-	}
-
-	public Course(List<Object> asList) {
-	}
-
-	public int getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
-
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-
-	public int getFees() {
-		return fees;
-	}
-
-	public void setFees(int fees) {
-		this.fees = fees;
-	}
+    public String getGrade() {
+        return grade;
+    }
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+    public int getStudentId() {
+        return studentId;
+    }
+    public  void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
+    public int getCourseId() {
+        return courseId;
+    }
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+    //constructor
+    public Course(int studentId, int courseId,String grade) {
+        super();
+        this.studentId = studentId;
+        this.courseId = courseId;
+        this.grade = grade;
+    }
+    public Course() {
+    }
+   
 	
 }
