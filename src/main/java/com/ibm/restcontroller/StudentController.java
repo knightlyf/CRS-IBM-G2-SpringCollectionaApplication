@@ -27,44 +27,15 @@ public class StudentController {
     @Autowired
     private StudentDAO studentDAO;
     
-    // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/student/{id}")
-    // @ResponseBody
-    // public ResponseEntity getStudent(@PathVariable("id") Long id) {
-    //     Student student = studentDAO.get(id);
-    //     if (student == null) {
-    //         return new ResponseEntity("No Student found for ID " + id, HttpStatus.NOT_FOUND);
-    //     }
-    //     return new ResponseEntity(student, HttpStatus.OK);
-    // }
 
-    // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/post/students")
-    // @ResponseBody
-    // public ResponseEntity createStudent(@RequestBody Student student) {
-    //     studentDAO.create(student);
-    //     return new ResponseEntity(student, HttpStatus.OK);
-    // }
-
-    // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.PUT, value = "/put/students/{id}")
-    // @ResponseBody
-    // public ResponseEntity updateStudent(@PathVariable("id") Long id,@RequestBody Student student) {
-    //     Student p = studentDAO.update(id, student);
-    //     if(null == student){
-    //         return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-    //     }
-    //     return new ResponseEntity(p, HttpStatus.OK);
-    // }
-
-    // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.DELETE, value = "/delete/students/{id}")
-    // @ResponseBody
-    // public ResponseEntity deleteStudent(@PathVariable Long id) {
-    //    if(null == studentDAO.delete(id)){
-    //         return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-    //     }
-    //     return new ResponseEntity(id, HttpStatus.OK);
-    // }
-
-    //=================================================================
-    //register course
+    //======================================================================================================================
+    /** 
+     * register RESTendpoint is used by student to register themselves
+     * @param student
+     * @return new student details
+     * url:/course/registrationStudent
+     * description: register student
+     */
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/course/registrationStudent")
     @ResponseBody
     public ResponseEntity<Student> registerCourse(@RequestBody Student student) {
@@ -72,7 +43,13 @@ public class StudentController {
         return new ResponseEntity<Student>(student, HttpStatus.OK);
     }
 
-    // Drop course
+    /** 
+     * deleteCourse RESTendpoint is used by student to drop the course
+     * @param id
+     * @return id of course dropped
+     * url:/drop/students/course/{id}
+     * description: drop the course
+     */
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.DELETE, value = "/drop/students/course/{id}")
     @ResponseBody
     public ResponseEntity<Integer> deleteCourse(@PathVariable int id) {
@@ -81,28 +58,50 @@ public class StudentController {
     }
     
 
-    //fees
+    /** 
+     * payFees RESTendpoint is used by student to view/pay the course fees
+     * @param id
+     * @return fees amount
+     * url:/pay/students/fees/{id}
+     * description: view the fees of the registered course
+     */
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/pay/students/fees/{id}")
     @ResponseBody
     public int payFees(@PathVariable int id) {
         return studentDAO.payFees(id);
-        // return new ResponseEntity(x, HttpStatus.OK);
     }
 
-    //get all registrations
+    /** 
+     * getAllStudents RESTendpoint is used to view list of students
+     * @return List of students
+     * url:/students/registrations
+     * description: view list of registered students
+     */
     @RequestMapping("/students/registrations")
     public ResponseEntity<List<Student>> getAllStudents() {
         return new ResponseEntity<List<Student>>(studentDAO.list(), HttpStatus.OK);
     }
 
-    //view grades
+    /** 
+     * getStudentGrades RESTendpoint is used by Student to view course grades
+     * @param id, id2
+     * @return String of grades
+     * url:/students/grades/{id}/{id2}
+     * description: view grades of a course from database
+     */
    @RequestMapping("/students/grades/{id}/{id2}")
    public ResponseEntity<String> getStudentGrades(@PathVariable("id") int id, @PathVariable("id2") int id2) {
         String x="Student id:"+id+"\n"+"Course Grade:"+studentDAO.viewGrades(id,id2);
         return new ResponseEntity<String>(x, HttpStatus.OK);
    }
 
-    // add course
+    /** 
+     * addCourse RESTendpoint is used by Student to add course to his/her list of courses
+     * @param Course
+     * @return newly added course
+     * url:/course/add
+     * description: adds new course to the database table course
+     */
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/course/add")
     @ResponseBody
     public ResponseEntity<Course> addCourse(@RequestBody Course Course) {
@@ -110,7 +109,13 @@ public class StudentController {
         return new ResponseEntity<Course>(Course, HttpStatus.OK);
     }
 
-    // update username and password
+    /** 
+     * addProfile RESTendpoint is used by Student to add email and password to the database.
+     * @param user
+     * @return the updated user
+     * url:/users
+     * description: update username and password
+     */
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/users")
     @ResponseBody
     public ResponseEntity<User> updateUser(@RequestBody User user) {
@@ -120,3 +125,7 @@ public class StudentController {
 
 
 }
+
+
+ 
+

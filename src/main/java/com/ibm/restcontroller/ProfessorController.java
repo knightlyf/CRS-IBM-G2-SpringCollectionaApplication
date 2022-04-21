@@ -24,48 +24,30 @@ public class ProfessorController {
     @Autowired
     private ProfessorDAO professorDAO;
 
+    /** 
+     * register RESTendpoint is used by professor to see list of registered students
+     * @return list of registered students
+     * url:professor/students
+     * description: list all students
+     */
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "professor/students")
     @ResponseBody
     public List<Student> getAllStudents() {
-        //list all professors
         return professorDAO.list();
     }
-
-    // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.GET, value = "/professor/{id}")
-    // @ResponseBody
-    // public ResponseEntity getProfessor(@PathVariable("id") Long id) {
-    //     Professor professor = professorDAO.get(id);
-    //     if (professor == null) {
-    //         return new ResponseEntity("No Professor found for ID " + id, HttpStatus.NOT_FOUND);
-    //     }
-    //     return new ResponseEntity(professor, HttpStatus.OK);
-    // }
-
+    /** 
+     * register RESTendpoint is used by professor to grade students
+     * @param registeredCourse
+     * @return course that has been graded
+     * url:post/students/grades
+     * description: Grade students
+     */
     @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.POST, value = "/post/students/grades")
     @ResponseBody
     public ResponseEntity<RegisteredCourse> createProfessor(@RequestBody RegisteredCourse registeredCourse) {
-        //Grade students
         professorDAO.grade(registeredCourse);
         return new ResponseEntity<>(registeredCourse, HttpStatus.OK);
     }
 
-    // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.PUT, value = "/put/professors/{id}")
-    // @ResponseBody
-    // public ResponseEntity updateProfessor(@PathVariable("id") Long id,@RequestBody Professor professor) {
-    //     Professor p = professorDAO.update(id, professor);
-    //     if(null == professor){
-    //         return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-    //     }
-    //     return new ResponseEntity(p, HttpStatus.OK);
-    // }
-
-    // @RequestMapping(produces = MediaType.APPLICATION_JSON,method = RequestMethod.DELETE, value = "/delete/professors/{id}")
-    // @ResponseBody
-    // public ResponseEntity deleteProfessor(@PathVariable Long id) {
-    //    if(null == professorDAO.delete(id)){
-    //         return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
-    //     }
-    //     return new ResponseEntity(id, HttpStatus.OK);
-    // }
 
 }
